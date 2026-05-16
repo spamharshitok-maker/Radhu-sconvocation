@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>For Radhu 🎓</title>
+  <title>For Radhudaaa 🎓</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -34,7 +34,7 @@
       overflow-x: hidden;
     }
 
-    /* CONFETTI */
+    /* ── CONFETTI ── */
     #confetti-canvas {
       position: fixed; top: 0; left: 50%;
       transform: translateX(-50%);
@@ -42,7 +42,7 @@
       pointer-events: none; z-index: 9999;
     }
 
-    /* SPLASH */
+    /* ── SPLASH ── */
     #splash {
       position: fixed; inset: 0;
       background: var(--ink);
@@ -59,7 +59,7 @@
     .splash-bar  { position: absolute; bottom: 0; left: 0; height: 3px; background: linear-gradient(to right, var(--rose), var(--gold), var(--plum)); animation: barfill 2.2s ease forwards; }
     @keyframes barfill { from{width:0} to{width:100%} }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero {
       min-height: 100svh;
       background: var(--ink);
@@ -90,16 +90,17 @@
     }
     @keyframes popin { from{opacity:0;transform:scale(.35)} to{opacity:1;transform:scale(1)} }
     .hero-name {
-      font-family: var(--serif); font-size: 54px; font-weight: 300;
+      font-family: var(--serif); font-size: 52px; font-weight: 300;
       color: #fff; line-height: 1.08; letter-spacing: -.01em; position: relative;
       opacity: 0; animation: fadeup .9s .9s ease forwards;
     }
     .hero-name em { font-style: italic; color: var(--rose-md); }
     .hero-sub {
       font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.9;
-      font-weight: 300; max-width: 280px; position: relative; margin-top: 1.4rem;
+      font-weight: 300; max-width: 290px; position: relative; margin-top: 1.4rem;
       opacity: 0; animation: fadeup .9s 1.15s ease forwards;
     }
+    .hero-sub em { color: var(--gold-md); font-style: normal; }
     .hero-bg-year {
       position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
       font-family: var(--serif); font-size: 110px; font-weight: 300;
@@ -115,7 +116,7 @@
     @keyframes spulse { 0%,100%{opacity:.3} 50%{opacity:.9} }
     @keyframes fadeup { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
 
-    /* SECTION */
+    /* ── SECTION ── */
     .sec {
       padding: 2.2rem 1.4rem 0;
       opacity: 0; transform: translateY(28px);
@@ -133,44 +134,7 @@
       opacity: .35;
     }
 
-    /* BADGES */
-    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
-    .badge { font-size: 11.5px; font-weight: 500; padding: 6px 14px; border-radius: 99px; border: 1px solid transparent; }
-    .b-rose  { background: var(--rose-lt); color: var(--rose); border-color: var(--rose-md); }
-    .b-plum  { background: var(--plum-lt); color: var(--plum); border-color: #C9B0E0; }
-    .b-gold  { background: var(--gold-lt); color: var(--gold); border-color: var(--gold-md); }
-    .b-sage  { background: var(--sage-lt); color: var(--sage); border-color: #9AD4BA; }
-    .b-ink   { background: var(--ink); color: #fff; }
-
-    /* STAT ROW */
-    .stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-    .stat-card { background: var(--ink); border-radius: 16px; padding: 1.3rem .8rem; text-align: center; }
-    .stat-num  { font-family: var(--serif); font-size: 30px; font-weight: 300; color: #fff; line-height: 1; margin-bottom: .3rem; }
-    .stat-num em { font-style: italic; color: var(--gold-md); }
-    .stat-lbl  { font-size: 10px; color: rgba(255,255,255,.38); letter-spacing: .08em; text-transform: uppercase; }
-
-    /* TIMELINE */
-    .timeline { position: relative; padding-left: 1.4rem; }
-    .tl-track { position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(to bottom, var(--rose), var(--plum), transparent); }
-    .tl-item  { position: relative; margin-bottom: 1.7rem; }
-    .tl-item:last-child { margin-bottom: 0; }
-    .tl-dot   { position: absolute; left: -1.42rem; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--rose); border: 2.5px solid var(--cream); box-shadow: 0 0 0 3px rgba(200,67,90,.2); }
-    .tl-date  { font-size: 10px; color: var(--muted); margin-bottom: .25rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; }
-    .tl-title { font-family: var(--serif); font-size: 19px; font-weight: 400; color: var(--ink); margin-bottom: .2rem; line-height: 1.3; }
-    .tl-desc  { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; }
-
-    /* GALLERY */
-    .gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
-    .photo-slot {
-      background: var(--rose-lt); border: 1px dashed var(--rose-md); border-radius: 14px;
-      aspect-ratio: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 5px;
-      transition: background .2s;
-    }
-    .photo-slot svg  { width: 20px; height: 20px; stroke: var(--rose); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .photo-lbl { font-size: 9px; color: var(--rose); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
-
-    /* CARDS */
+    /* ── CARDS ── */
     .cards-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
     .card {
       background: #fff; border: 1px solid rgba(200,67,90,.1);
@@ -186,7 +150,79 @@
     .card-body  { font-size: 12px; color: var(--muted); line-height: 1.7; font-weight: 300; }
     .full { grid-column: 1/-1; }
 
-    /* DREAMS */
+    /* ── MEDIA GRID ── */
+    .media-intro {
+      font-family: var(--serif); font-size: 15px; color: var(--muted);
+      line-height: 1.7; font-style: italic; margin-bottom: 1.2rem;
+    }
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    /* slot 1 spans full width — hero childhood moment */
+    .media-slot:first-child { grid-column: 1 / -1; }
+
+    .media-slot {
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--ink);
+      position: relative;
+      aspect-ratio: 4/3;
+    }
+    .media-slot:first-child { aspect-ratio: 16/9; }
+
+    /* photo slot */
+    .media-slot.photo {
+      background: var(--rose-lt);
+      border: 1.5px dashed var(--rose-md);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 6px;
+    }
+    .media-slot.photo svg { width: 22px; height: 22px; stroke: var(--rose); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .media-slot.photo .slot-lbl { font-size: 10px; color: var(--rose); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
+    .media-slot.photo .slot-hint { font-size: 10px; color: var(--muted); font-weight: 300; }
+
+    /* video slot */
+    .media-slot.video {
+      background: #0f0a0d;
+      border: 1.5px dashed rgba(201,151,58,.4);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+    }
+    .video-play {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(201,151,58,.15);
+      border: 1.5px solid rgba(201,151,58,.4);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .video-play svg { width: 16px; height: 16px; fill: var(--gold-md); margin-left: 2px; }
+    .media-slot.video .slot-lbl  { font-size: 10px; color: var(--gold-md); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
+    .media-slot.video .slot-hint { font-size: 10px; color: rgba(255,255,255,.3); font-weight: 300; }
+
+    /* era label pill */
+    .era-pill {
+      position: absolute; top: 8px; left: 8px;
+      background: rgba(28,16,24,.75); backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 99px; padding: 3px 9px;
+      font-size: 10px; color: rgba(255,255,255,.7);
+      font-weight: 500; letter-spacing: .04em;
+      pointer-events: none;
+    }
+    .era-pill.gold { background: rgba(201,151,58,.25); color: var(--gold-md); border-color: rgba(201,151,58,.3); }
+
+    /* actual embedded image */
+    .media-slot img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    /* actual embedded iframe video */
+    .media-slot iframe {
+      width: 100%; height: 100%; border: none; display: block;
+    }
+
+    /* ── DREAMS ── */
     .dreams { background: #fff; border: 1px solid var(--plum-lt); border-radius: 16px; overflow: hidden; }
     .dream-item { display: flex; gap: 14px; align-items: flex-start; padding: 1.1rem 1.2rem; border-bottom: 1px solid var(--plum-lt); transition: background .18s; }
     .dream-item:last-child { border-bottom: none; }
@@ -195,18 +231,18 @@
     .dream-text { font-size: 13.5px; color: var(--ink); line-height: 1.5; padding-top: 4px; }
     .dream-sub  { font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 300; }
 
-    /* LETTER */
+    /* ── LETTER ── */
     .letter {
       background: var(--ink); border-radius: 20px; padding: 2rem 1.6rem 1.8rem;
       position: relative; overflow: hidden;
     }
     .letter-glow  { position: absolute; top: -60px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(200,67,90,.25) 0%, transparent 70%); pointer-events: none; }
     .letter-glow2 { position: absolute; bottom: -50px; left: -30px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(107,78,138,.2) 0%, transparent 70%); pointer-events: none; }
-    .letter-open  { position: absolute; top: -6px; left: 14px; font-family: var(--serif); font-size: 88px; color: rgba(232,160,174,.18); line-height: 1; pointer-events: none; }
+    .letter-open  { position: absolute; top: -6px; left: 14px; font-family: var(--serif); font-size: 88px; color: rgba(232,160,174,.15); line-height: 1; pointer-events: none; }
     .letter-text  { font-family: var(--serif); font-size: 15px; color: rgba(255,255,255,.85); line-height: 2.1; position: relative; z-index: 1; }
     .letter-sign  { margin-top: 1.4rem; font-family: var(--serif); font-size: 14px; color: var(--gold-md); font-style: italic; position: relative; z-index: 1; }
 
-    /* FOOTER */
+    /* ── FOOTER ── */
     .footer { text-align: center; padding: 3rem 1.5rem 4.5rem; }
     .footer-heart { font-size: 36px; display: block; margin-bottom: .9rem; animation: hb 2s infinite ease-in-out; }
     @keyframes hb { 0%,100%{transform:scale(1)} 14%{transform:scale(1.22)} 28%{transform:scale(1)} 42%{transform:scale(1.14)} 70%{transform:scale(1)} }
@@ -222,19 +258,19 @@
 <!-- SPLASH -->
 <div id="splash">
   <span class="splash-cap">🎓</span>
-  <div class="splash-text">For Radhu</div>
+  <div class="splash-text">For Radhudaaa</div>
   <div class="splash-sub">Something special awaits</div>
   <div class="splash-bar"></div>
 </div>
 
-<!-- HERO -->
+<!-- ══════════ HERO ══════════ -->
 <section class="hero">
   <div class="hero-mesh"></div>
   <div class="hero-grain"></div>
-  <div class="hero-tag">Convocation Day · 2025</div>
+  <div class="hero-tag">Convocation Day &nbsp;·&nbsp; 16th May 2025</div>
   <span class="hero-cap">🎓</span>
-  <h1 class="hero-name">Congratulations,<br><em>Radhu</em></h1>
-  <p class="hero-sub">Distance kept me from standing next to you today, but nothing could stop me from celebrating how proud I am of you.</p>
+  <h1 class="hero-name">Congratulations,<br><em>Radhudaaa</em></h1>
+  <p class="hero-sub">Distance kept me from standing next to you today, but nothing could stop me from celebrating how proud I am of my <em>nanu nanu tutu</em>.</p>
   <div class="hero-bg-year">2025</div>
   <div class="hero-scroll">
     <span class="hero-scroll-txt">Scroll</span>
@@ -242,132 +278,48 @@
   </div>
 </section>
 
-<!-- ACHIEVEMENTS -->
+<!-- ══════════ THIS ONE'S A BIG DEAL ══════════ -->
 <div class="divider"></div>
 <div class="sec">
-  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">What makes you extraordinary</div></div>
-  <div class="badge-row">
-    <span class="badge b-ink">🏆 Full merit scholarship</span>
-    <span class="badge b-sage">📊 Finance wizard</span>
-    <span class="badge b-gold">⚡ Hard worker</span>
-    <span class="badge b-plum">🧠 Memory like an elephant</span>
-    <span class="badge b-rose">✨ Fast learner</span>
-  </div>
-</div>
-
-<!-- STATS -->
-<div class="sec">
-  <div class="stat-row">
-    <div class="stat-card">
-      <div class="stat-num"><em>1st</em></div>
-      <div class="stat-lbl">merit scholar</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">∞</div>
-      <div class="stat-lbl">proud of you</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num"><em>♾</em></div>
-      <div class="stat-lbl">love for you</div>
-    </div>
-  </div>
-</div>
-
-<!-- OUR STORY -->
-<div class="divider"></div>
-<div class="sec">
-  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Our story</div></div>
-  <div class="timeline">
-    <div class="tl-track"></div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-date">The beginning — ✦ edit your date</div>
-      <div class="tl-title">The day we met</div>
-      <div class="tl-desc">Write how you two met here. Even a few words make it magical.</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-date">A favorite moment — ✦ edit your date</div>
-      <div class="tl-title">Memory #2</div>
-      <div class="tl-desc">A moment you'll both always remember. Add your version here.</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-date">Another milestone — ✦ edit your date</div>
-      <div class="tl-title">Memory #3</div>
-      <div class="tl-desc">Your third favorite moment together — make it count.</div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot" style="background:var(--gold)"></div>
-      <div class="tl-date">Today 🎓</div>
-      <div class="tl-title">Convocation Day</div>
-      <div class="tl-desc">The day Radhu graduated and made everyone so incredibly proud.</div>
-    </div>
-  </div>
-</div>
-
-<!-- GALLERY -->
-<div class="divider"></div>
-<div class="sec">
-  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Our gallery</div></div>
-  <div class="gallery">
-    <!--
-      TO ADD YOUR PHOTO:
-      Replace each <div class="photo-slot">...</div> with:
-      <img src="photo1.jpg" style="border-radius:14px;width:100%;aspect-ratio:1;object-fit:cover">
-      Then upload that photo file to the same GitHub repo folder.
-    -->
-    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
-    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
-    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
-    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
-    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
-    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
-  </div>
-</div>
-
-<!-- PROUD OF YOU -->
-<div class="divider"></div>
-<div class="sec">
-  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Why I'm so proud of you</div></div>
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">This one's a big deal</div></div>
   <div class="cards-grid">
     <div class="card proud">
       <span class="card-icon">✨</span>
-      <div class="card-title">You earned every bit of this</div>
-      <div class="card-body">A full merit scholarship is what relentless hard work looks like. You did that.</div>
+      <div class="card-title">She earned every bit of this</div>
+      <div class="card-body">A full merit scholarship is what relentless hard work looks like. You did that, all on your own.</div>
     </div>
     <div class="card proud">
       <span class="card-icon">🧠</span>
       <div class="card-title">That mind of yours</div>
-      <div class="card-body">You absorb and retain things faster than anyone. A genuine superpower.</div>
+      <div class="card-body">You absorb and retain things faster than anyone I know. It's genuinely a superpower.</div>
     </div>
     <div class="card proud full">
       <span class="card-icon">📊</span>
-      <div class="card-title">You make finance look effortless</div>
-      <div class="card-body">Watching you own something so complex with such confidence makes me beam every single time.</div>
+      <div class="card-title">She makes finance look effortless</div>
+      <div class="card-body">Watching you own something so complex with such confidence — every single time, I'm in awe. You were built for this.</div>
     </div>
   </div>
 </div>
 
-<!-- REASONS I LOVE YOU -->
+<!-- ══════════ MY FAVOURITE THINGS ABOUT YOU ══════════ -->
 <div class="divider"></div>
 <div class="sec">
-  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Reasons I love you</div></div>
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">My favourite things about you</div></div>
   <div class="cards-grid">
     <div class="card love">
       <span class="card-icon">🌸</span>
       <div class="card-title">You're the cutest</div>
-      <div class="card-body">Genuinely, embarrassingly, the cutest. Every single thing. I don't make the rules.</div>
+      <div class="card-body">Genuinely, embarrassingly, the cutest. Every single thing you do. I don't make the rules.</div>
     </div>
     <div class="card love">
       <span class="card-icon">💛</span>
       <div class="card-title">So thoughtful & caring</div>
-      <div class="card-body">You notice the little things. You check in. You care so deeply.</div>
+      <div class="card-body">You notice the little things. You check in. You care so deeply — it's everything.</div>
     </div>
     <div class="card love">
       <span class="card-icon">🤸</span>
       <div class="card-title">Your clumsy side</div>
-      <div class="card-body">I love your clumsy moments so much. Perfectly, completely you.</div>
+      <div class="card-body">I love your little clumsy moments so much. They're perfectly, completely you.</div>
     </div>
     <div class="card love">
       <span class="card-icon">🏡</span>
@@ -377,7 +329,119 @@
   </div>
 </div>
 
-<!-- FUTURE DREAMS -->
+<!-- ══════════ LITTLE RADHU → GRADUATE RADHU ══════════ -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Little Radhu → Graduate Radhu</div></div>
+  <p class="media-intro">From the little girl who had it all figured out before anyone else knew — to the woman walking across that stage today. Look at you go. 🎓</p>
+
+  <div class="media-grid">
+
+    <!--
+    ═══════════════════════════════════════════
+    HOW TO ADD YOUR PHOTOS & VIDEOS:
+
+    PHOTO: Replace the entire <div class="media-slot photo"> block with:
+      <div class="media-slot" style="aspect-ratio:4/3">
+        <img src="your-photo-filename.jpg" alt="caption">
+        <div class="era-pill">Age 5</div>
+      </div>
+
+    VIDEO (YouTube): Replace the entire <div class="media-slot video"> block with:
+      <div class="media-slot" style="aspect-ratio:16/9">
+        <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+        <div class="era-pill gold">Video</div>
+      </div>
+
+    VIDEO (Google Drive): Replace with:
+      <div class="media-slot" style="aspect-ratio:16/9">
+        <iframe src="https://drive.google.com/file/d/YOUR_FILE_ID/preview" allowfullscreen></iframe>
+        <div class="era-pill gold">Video</div>
+      </div>
+
+    Upload all photo files to the same GitHub repo folder as index.html.
+    ═══════════════════════════════════════════
+    -->
+
+    <!-- SLOT 1 — hero, full width -->
+    <div class="media-slot photo">
+      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+      <span class="slot-lbl">Add favourite photo</span>
+      <span class="slot-hint">hero moment — full width</span>
+      <div class="era-pill">e.g. Age 3</div>
+    </div>
+
+    <!-- SLOT 2 — photo -->
+    <div class="media-slot photo">
+      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+      <span class="slot-lbl">Add photo</span>
+      <div class="era-pill">e.g. Age 6</div>
+    </div>
+
+    <!-- SLOT 3 — video -->
+    <div class="media-slot video">
+      <div class="video-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <span class="slot-lbl">Add video</span>
+      <span class="slot-hint">paste YouTube / Drive link</span>
+      <div class="era-pill gold">Video</div>
+    </div>
+
+    <!-- SLOT 4 — photo -->
+    <div class="media-slot photo">
+      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+      <span class="slot-lbl">Add photo</span>
+      <div class="era-pill">e.g. Age 10</div>
+    </div>
+
+    <!-- SLOT 5 — photo -->
+    <div class="media-slot photo">
+      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+      <span class="slot-lbl">Add photo</span>
+      <div class="era-pill">e.g. Age 13</div>
+    </div>
+
+    <!-- SLOT 6 — video -->
+    <div class="media-slot video">
+      <div class="video-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <span class="slot-lbl">Add video</span>
+      <span class="slot-hint">paste YouTube / Drive link</span>
+      <div class="era-pill gold">Video</div>
+    </div>
+
+    <!-- SLOT 7 — photo -->
+    <div class="media-slot photo">
+      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+      <span class="slot-lbl">Add photo</span>
+      <div class="era-pill">e.g. Age 16</div>
+    </div>
+
+    <!-- SLOT 8 — photo -->
+    <div class="media-slot photo">
+      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+      <span class="slot-lbl">Add photo</span>
+      <div class="era-pill">e.g. Age 19</div>
+    </div>
+
+    <!-- SLOT 9 — video -->
+    <div class="media-slot video">
+      <div class="video-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <span class="slot-lbl">Add video</span>
+      <span class="slot-hint">paste YouTube / Drive link</span>
+      <div class="era-pill gold">Video</div>
+    </div>
+
+    <!-- SLOT 10 — graduation, full width hero closer -->
+    <div class="media-slot photo" style="grid-column:1/-1;aspect-ratio:16/9">
+      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+      <span class="slot-lbl">Add convocation photo</span>
+      <span class="slot-hint">the big one — today 🎓</span>
+      <div class="era-pill gold">Graduate Radhu 🎓</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ THINGS I CAN'T WAIT TO DO WITH YOU ══════════ -->
 <div class="divider"></div>
 <div class="sec">
   <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Things I can't wait to do with you</div></div>
@@ -388,7 +452,7 @@
     </div>
     <div class="dream-item">
       <div class="dream-num">2</div>
-      <div><div class="dream-text">Edit this — something you're excited about together</div><div class="dream-sub">A goal, a plan, a little wish</div></div>
+      <div><div class="dream-text">Edit this — something you're both excited about</div><div class="dream-sub">A goal, a plan, a little wish</div></div>
     </div>
     <div class="dream-item">
       <div class="dream-num">3</div>
@@ -397,7 +461,7 @@
   </div>
 </div>
 
-<!-- LETTER -->
+<!-- ══════════ A NOTE FROM ME ══════════ -->
 <div class="divider"></div>
 <div class="sec">
   <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">A note from me to you</div></div>
@@ -406,18 +470,18 @@
     <div class="letter-glow2"></div>
     <div class="letter-open">"</div>
     <div class="letter-text">
-      Hey Radhu,<br><br>
+      Hey Radhudaaa,<br><br>
       I wish I could be standing right there beside you today — watching you walk across that stage, camera in hand, absolutely losing it with pride.<br><br>
       But know that even from far away, I'm there. In every step you take today, I'm cheering the loudest.<br><br>
       You worked so hard for this. The late nights, the pressure, all of it — you never gave up. And you did it with a full merit scholarship, which still blows my mind every time I think about it.<br><br>
       You are brilliant and caring and clumsy and thoughtful and so, so loved. Today belongs to you completely.<br><br>
-      Congratulations, my Radhu. 🎓
+      Congratulations, my nanu nanu tutu. 🎓
     </div>
     <div class="letter-sign">— Always yours, from wherever I am 💛</div>
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ══════════ FOOTER ══════════ -->
 <div class="sec footer">
   <span class="footer-heart">❤️</span>
   <div class="footer-title">A little place on the internet,<br>made just for you</div>
@@ -426,7 +490,7 @@
 </div>
 
 <script>
-/* ── CONFETTI ENGINE ── */
+/* ── CONFETTI ── */
 const canvas = document.getElementById('confetti-canvas');
 const ctx    = canvas.getContext('2d');
 canvas.width  = Math.min(window.innerWidth, 430);
@@ -437,17 +501,17 @@ const SHAPES = ['circle','rect','tri'];
 let pieces = [], raf;
 
 function Piece(x) {
-  this.x       = x !== undefined ? x : Math.random() * canvas.width;
-  this.y       = -12;
-  this.size    = 5 + Math.random() * 8;
-  this.color   = COLORS[Math.floor(Math.random() * COLORS.length)];
-  this.shape   = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-  this.vy      = 3 + Math.random() * 5;
-  this.vx      = (Math.random() - .5) * 3.5;
-  this.rot     = Math.random() * 360;
-  this.rotSpd  = (Math.random() - .5) * 9;
-  this.opacity = 1;
-  this.grav    = .04 + Math.random() * .06;
+  this.x      = x !== undefined ? x : Math.random() * canvas.width;
+  this.y      = -12;
+  this.size   = 5 + Math.random() * 8;
+  this.color  = COLORS[Math.floor(Math.random() * COLORS.length)];
+  this.shape  = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+  this.vy     = 3 + Math.random() * 5;
+  this.vx     = (Math.random() - .5) * 3.5;
+  this.rot    = Math.random() * 360;
+  this.rotSpd = (Math.random() - .5) * 9;
+  this.opacity= 1;
+  this.grav   = .04 + Math.random() * .06;
 }
 
 function drawPiece(p) {
@@ -457,22 +521,19 @@ function drawPiece(p) {
   ctx.translate(p.x, p.y);
   ctx.rotate(p.rot * Math.PI / 180);
   if (p.shape === 'circle') {
-    ctx.beginPath(); ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(0,0,p.size/2,0,Math.PI*2); ctx.fill();
   } else if (p.shape === 'rect') {
-    ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+    ctx.fillRect(-p.size/2,-p.size/4,p.size,p.size/2);
   } else {
-    ctx.beginPath(); ctx.moveTo(0, -p.size / 2); ctx.lineTo(p.size / 2, p.size / 2); ctx.lineTo(-p.size / 2, p.size / 2); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(0,-p.size/2); ctx.lineTo(p.size/2,p.size/2); ctx.lineTo(-p.size/2,p.size/2); ctx.closePath(); ctx.fill();
   }
   ctx.restore();
 }
 
 function tick() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   pieces.forEach(p => {
-    p.y   += p.vy;
-    p.x   += p.vx;
-    p.vy  += p.grav;
-    p.rot += p.rotSpd;
+    p.y += p.vy; p.x += p.vx; p.vy += p.grav; p.rot += p.rotSpd;
     if (p.y > canvas.height * .75) p.opacity -= .022;
     drawPiece(p);
   });
@@ -483,18 +544,14 @@ function tick() {
 function burst(n, xMin, xMax) {
   xMin = xMin ?? 0; xMax = xMax ?? canvas.width;
   for (let i = 0; i < n; i++) {
-    const p = new Piece(xMin + Math.random() * (xMax - xMin));
-    pieces.push(p);
+    pieces.push(new Piece(xMin + Math.random() * (xMax - xMin)));
   }
 }
 
 function launchConfetti() {
-  burst(130);
-  setTimeout(() => burst(90),  380);
-  setTimeout(() => burst(70),  780);
-  setTimeout(() => burst(50), 1200);
-  cancelAnimationFrame(raf);
-  tick();
+  burst(130); setTimeout(() => burst(90), 380);
+  setTimeout(() => burst(70), 780); setTimeout(() => burst(50), 1200);
+  cancelAnimationFrame(raf); tick();
 }
 
 /* ── SPLASH ── */
@@ -508,7 +565,9 @@ window.addEventListener('load', () => {
 
 /* ── SCROLL REVEAL ── */
 const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
 }, { threshold: 0.09 });
 document.querySelectorAll('.sec').forEach(el => obs.observe(el));
 </script>
