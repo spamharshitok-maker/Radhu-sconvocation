@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>For Radhudaaa 🎓</title>
+  <title>For Radhu 🎓</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -116,18 +116,16 @@
     @keyframes spulse { 0%,100%{opacity:.3} 50%{opacity:.9} }
     @keyframes fadeup { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
 
-    /* ── SECTION ── */
+    /* ── SECTIONS ── */
     .sec {
       padding: 2.2rem 1.4rem 0;
       opacity: 0; transform: translateY(28px);
       transition: opacity .65s ease, transform .65s ease;
     }
     .sec.visible { opacity: 1; transform: translateY(0); }
-
     .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 1.1rem; }
     .sec-line    { flex: 1; height: 1px; background: linear-gradient(to right, var(--rose-md), transparent); }
     .sec-label   { font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
-
     .divider {
       margin: 2.2rem 1.4rem 0; height: 1px;
       background: linear-gradient(to right, transparent, var(--rose-md) 40%, transparent);
@@ -148,79 +146,167 @@
     .card-icon  { font-size: 24px; margin-bottom: .5rem; display: block; }
     .card-title { font-family: var(--serif); font-size: 16px; font-weight: 400; color: var(--ink); margin-bottom: .3rem; line-height: 1.3; }
     .card-body  { font-size: 12px; color: var(--muted); line-height: 1.7; font-weight: 300; }
-    .full { grid-column: 1/-1; }
 
-    /* ── MEDIA GRID ── */
-    .media-intro {
-      font-family: var(--serif); font-size: 15px; color: var(--muted);
-      line-height: 1.7; font-style: italic; margin-bottom: 1.2rem;
-    }
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    /* slot 1 spans full width — hero childhood moment */
-    .media-slot:first-child { grid-column: 1 / -1; }
-
-    .media-slot {
-      border-radius: 14px;
-      overflow: hidden;
+    /* ══════════════════════════════
+       PHOTO SCRUBBER
+    ══════════════════════════════ */
+    .scrubber-wrap {
       background: var(--ink);
+      border-radius: 24px;
+      overflow: hidden;
       position: relative;
-      aspect-ratio: 4/3;
     }
-    .media-slot:first-child { aspect-ratio: 16/9; }
 
-    /* photo slot */
-    .media-slot.photo {
-      background: var(--rose-lt);
-      border: 1.5px dashed var(--rose-md);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 6px;
+    /* big photo display with blurred bg */
+    .photo-stage {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      overflow: hidden;
     }
-    .media-slot.photo svg { width: 22px; height: 22px; stroke: var(--rose); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .media-slot.photo .slot-lbl { font-size: 10px; color: var(--rose); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
-    .media-slot.photo .slot-hint { font-size: 10px; color: var(--muted); font-weight: 300; }
+    /* blurred background layer — same image, scaled up */
+    .photo-bg {
+      position: absolute; inset: -20px;
+      background-size: cover;
+      background-position: center;
+      filter: blur(18px) brightness(.55) saturate(1.2);
+      transform: scale(1.1);
+      transition: background-image .25s ease;
+    }
+    /* main photo on top */
+    .photo-main {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .photo-main img {
+      max-width: 100%; max-height: 100%;
+      width: auto; height: auto;
+      object-fit: contain;
+      position: relative; z-index: 1;
+      border-radius: 4px;
+      transition: opacity .2s ease;
+    }
+    .photo-main img.fading { opacity: 0; }
 
-    /* video slot */
-    .media-slot.video {
-      background: #0f0a0d;
-      border: 1.5px dashed rgba(201,151,58,.4);
+    /* placeholder shown before photos added */
+    .photo-placeholder {
+      position: absolute; inset: 0; z-index: 1;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center; gap: 8px;
     }
-    .video-play {
-      width: 38px; height: 38px; border-radius: 50%;
-      background: rgba(201,151,58,.15);
-      border: 1.5px solid rgba(201,151,58,.4);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .video-play svg { width: 16px; height: 16px; fill: var(--gold-md); margin-left: 2px; }
-    .media-slot.video .slot-lbl  { font-size: 10px; color: var(--gold-md); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
-    .media-slot.video .slot-hint { font-size: 10px; color: rgba(255,255,255,.3); font-weight: 300; }
+    .photo-placeholder svg { width: 28px; height: 28px; stroke: rgba(255,255,255,.25); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .photo-placeholder span { font-size: 12px; color: rgba(255,255,255,.3); }
 
-    /* era label pill */
-    .era-pill {
-      position: absolute; top: 8px; left: 8px;
-      background: rgba(28,16,24,.75); backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 99px; padding: 3px 9px;
-      font-size: 10px; color: rgba(255,255,255,.7);
-      font-weight: 500; letter-spacing: .04em;
+    /* era + counter overlay */
+    .photo-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      padding: 2rem 1.2rem .9rem;
+      background: linear-gradient(to top, rgba(28,16,24,.9) 0%, transparent 100%);
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+    .photo-era-label {
+      font-family: var(--serif); font-size: 17px; font-style: italic;
+      color: rgba(255,255,255,.9); font-weight: 300;
+    }
+    .photo-counter {
+      font-size: 11px; color: rgba(255,255,255,.45);
+      letter-spacing: .06em; font-weight: 500;
+    }
+
+    /* caption */
+    .photo-caption-bar {
+      padding: .7rem 1.2rem .5rem;
+      min-height: 2.2rem;
+    }
+    .photo-caption-text {
+      font-size: 12px; color: rgba(255,255,255,.5);
+      font-family: var(--serif); font-style: italic; text-align: center;
+    }
+
+    /* ── ERA MARKERS ── */
+    .era-markers {
+      display: flex; justify-content: space-between;
+      padding: 0 1.2rem .3rem;
+    }
+    .era-mark {
+      font-size: 9px; color: rgba(255,255,255,.3);
+      letter-spacing: .06em; text-transform: uppercase;
+      text-align: center; flex: 1;
+    }
+    .era-mark:first-child { text-align: left; }
+    .era-mark:last-child  { text-align: right; }
+
+    /* ── THE SCRUBBER BAR ── */
+    .scrubber-bar-wrap {
+      padding: .4rem 1.2rem 1.4rem;
+      position: relative;
+    }
+    /* track */
+    .scrubber-track {
+      position: relative;
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255,255,255,.12);
+      cursor: pointer;
+      touch-action: none;
+    }
+    /* filled portion */
+    .scrubber-fill {
+      position: absolute; left: 0; top: 0; height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(to right, var(--rose), var(--gold));
       pointer-events: none;
+      width: 0%;
+      transition: width .08s linear;
     }
-    .era-pill.gold { background: rgba(201,151,58,.25); color: var(--gold-md); border-color: rgba(201,151,58,.3); }
+    /* era ticks */
+    .scrubber-tick {
+      position: absolute; top: -3px;
+      width: 2px; height: 10px;
+      background: rgba(255,255,255,.2);
+      border-radius: 1px;
+      pointer-events: none;
+      transform: translateX(-50%);
+    }
+    /* thumb — iPhone unlock style */
+    .scrubber-thumb {
+      position: absolute;
+      top: 50%; transform: translate(-50%, -50%);
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,.5), 0 0 0 3px rgba(255,255,255,.15);
+      cursor: grab;
+      z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      transition: box-shadow .15s, transform .1s;
+      touch-action: none;
+    }
+    .scrubber-thumb:active, .scrubber-thumb.dragging {
+      cursor: grabbing;
+      box-shadow: 0 4px 20px rgba(200,67,90,.6), 0 0 0 5px rgba(200,67,90,.2);
+      transform: translate(-50%, -50%) scale(1.15);
+    }
+    .scrubber-thumb svg {
+      width: 10px; height: 10px;
+      fill: none; stroke: #aaa; stroke-width: 2;
+      stroke-linecap: round;
+    }
+    /* glow pulse on load */
+    .scrubber-thumb.pulse { animation: thumb-pulse 1.8s ease-in-out 2; }
+    @keyframes thumb-pulse {
+      0%,100%{ box-shadow: 0 2px 12px rgba(0,0,0,.5), 0 0 0 3px rgba(255,255,255,.15); }
+      50%{ box-shadow: 0 2px 20px rgba(200,67,90,.7), 0 0 0 8px rgba(200,67,90,.15); }
+    }
 
-    /* actual embedded image */
-    .media-slot img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
+    /* hint text */
+    .scrubber-hint {
+      text-align: center; padding: 0 0 .8rem;
+      font-size: 10px; color: rgba(255,255,255,.22);
+      letter-spacing: .1em; text-transform: uppercase;
+      animation: hint-fade 3s 2s ease forwards;
     }
-    /* actual embedded iframe video */
-    .media-slot iframe {
-      width: 100%; height: 100%; border: none; display: block;
-    }
+    @keyframes hint-fade { from{opacity:1} to{opacity:0;pointer-events:none} }
 
     /* ── DREAMS ── */
     .dreams { background: #fff; border: 1px solid var(--plum-lt); border-radius: 16px; overflow: hidden; }
@@ -258,7 +344,7 @@
 <!-- SPLASH -->
 <div id="splash">
   <span class="splash-cap">🎓</span>
-  <div class="splash-text">For Radhudaaa</div>
+  <div class="splash-text">For Radhu</div>
   <div class="splash-sub">Something special awaits</div>
   <div class="splash-bar"></div>
 </div>
@@ -267,11 +353,11 @@
 <section class="hero">
   <div class="hero-mesh"></div>
   <div class="hero-grain"></div>
-  <div class="hero-tag">Convocation Day &nbsp;·&nbsp; 16th May 2025</div>
+  <div class="hero-tag">Convocation Day &nbsp;·&nbsp; 16th May 2026</div>
   <span class="hero-cap">🎓</span>
   <h1 class="hero-name">Congratulations,<br><em>Radhudaaa</em></h1>
   <p class="hero-sub">Distance kept me from standing next to you today, but nothing could stop me from celebrating how proud I am of my <em>nanu nanu tutu</em>.</p>
-  <div class="hero-bg-year">2025</div>
+  <div class="hero-bg-year">2026</div>
   <div class="hero-scroll">
     <span class="hero-scroll-txt">Scroll</span>
     <div class="scroll-line"></div>
@@ -286,17 +372,22 @@
     <div class="card proud">
       <span class="card-icon">✨</span>
       <div class="card-title">She earned every bit of this</div>
-      <div class="card-body">A full merit scholarship is what relentless hard work looks like. You did that, all on your own.</div>
+      <div class="card-body">Passed CFA and completed degree effortlessly. You did that, all on your own without stressing others too.</div>
     </div>
     <div class="card proud">
       <span class="card-icon">🧠</span>
       <div class="card-title">That mind of yours</div>
-      <div class="card-body">You absorb and retain things faster than anyone I know. It's genuinely a superpower.</div>
+      <div class="card-body">You absorb and memorise things faster than anyone I know. It's a superpower, kyarek also a disaster 😆.</div>
     </div>
-    <div class="card proud full">
+    <div class="card proud">
+      <span class="card-icon">🍽️</span>
+      <div class="card-title">Survival</div>
+      <div class="card-body">You survived the untolerable mess food and pune summer heat without complaining. That alone deserves a medal.</div>
+    </div>
+    <div class="card proud">
       <span class="card-icon">📊</span>
-      <div class="card-title">She makes finance look effortless</div>
-      <div class="card-body">Watching you own something so complex with such confidence — every single time, I'm in awe. You were built for this.</div>
+      <div class="card-title">Born analyst</div>
+      <div class="card-body">Mari nani nani kaabar very good at planning and sorting finance and analysis toh vaat javadyo evu kari nakhe betha betha.</div>
     </div>
   </div>
 </div>
@@ -308,23 +399,23 @@
   <div class="cards-grid">
     <div class="card love">
       <span class="card-icon">🌸</span>
-      <div class="card-title">You're the cutest</div>
-      <div class="card-body">Genuinely, embarrassingly, the cutest. Every single thing you do. I don't make the rules.</div>
+      <div class="card-title">Cutesttt ever</div>
+      <div class="card-body">The competition has been called off since 23 years now as there's no one eligible other than you. Every single thing you do is cute max, be it GIF search or anything else. I don't make the rules.</div>
     </div>
     <div class="card love">
       <span class="card-icon">💛</span>
       <div class="card-title">So thoughtful & caring</div>
-      <div class="card-body">You notice the little things. You check in. You care so deeply — it's everything.</div>
+      <div class="card-body">Maru wholesomeyu cho, badhaini chinta kare, dhyan rakhe ne family sathe quality time spend kare. You are our inspiration.</div>
     </div>
     <div class="card love">
       <span class="card-icon">🤸</span>
       <div class="card-title">Your clumsy side</div>
-      <div class="card-body">I love your little clumsy moments so much. They're perfectly, completely you.</div>
+      <div class="card-body">I love your little clumsy moments so much nanukda babydaa. They're perfectly, completely you.</div>
     </div>
     <div class="card love">
       <span class="card-icon">🏡</span>
-      <div class="card-title">How you love your family</div>
-      <div class="card-body">The way you show up for people you love says everything about who you are.</div>
+      <div class="card-title">Smarty Pants</div>
+      <div class="card-body">Ek number no smartydo che, badhij khabar padi jai ne processor 10x speed vadu che cuteda nu.</div>
     </div>
   </div>
 </div>
@@ -333,110 +424,59 @@
 <div class="divider"></div>
 <div class="sec">
   <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Little Radhu → Graduate Radhu</div></div>
-  <p class="media-intro">From the little girl who had it all figured out before anyone else knew — to the woman walking across that stage today. Look at you go. 🎓</p>
+  <p style="font-family:var(--serif);font-size:15px;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:1.4rem;">
+    From the little girl who had it all figured out before anyone else knew — to the woman walking across that stage today. Drag to travel through time. 🎓
+  </p>
 
-  <div class="media-grid">
+  <!-- SCRUBBER WIDGET -->
+  <div class="scrubber-wrap">
 
-    <!--
-    ═══════════════════════════════════════════
-    HOW TO ADD YOUR PHOTOS & VIDEOS:
-
-    PHOTO: Replace the entire <div class="media-slot photo"> block with:
-      <div class="media-slot" style="aspect-ratio:4/3">
-        <img src="your-photo-filename.jpg" alt="caption">
-        <div class="era-pill">Age 5</div>
+    <!-- photo stage -->
+    <div class="photo-stage" id="photoStage">
+      <div class="photo-bg" id="photoBg"></div>
+      <div class="photo-main" id="photoMain">
+        <!-- placeholder — replaced by JS when photos exist -->
+        <div class="photo-placeholder" id="photoPlaceholder">
+          <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+          <span>Add your photos below</span>
+        </div>
+        <img id="photoImg" src="" alt="" style="display:none"/>
       </div>
-
-    VIDEO (YouTube): Replace the entire <div class="media-slot video"> block with:
-      <div class="media-slot" style="aspect-ratio:16/9">
-        <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
-        <div class="era-pill gold">Video</div>
+      <div class="photo-overlay">
+        <span class="photo-era-label" id="eraLabel">Baby Radhu 👶</span>
+        <span class="photo-counter" id="photoCounter">1 / 56</span>
       </div>
+    </div>
 
-    VIDEO (Google Drive): Replace with:
-      <div class="media-slot" style="aspect-ratio:16/9">
-        <iframe src="https://drive.google.com/file/d/YOUR_FILE_ID/preview" allowfullscreen></iframe>
-        <div class="era-pill gold">Video</div>
+    <!-- caption -->
+    <div class="photo-caption-bar">
+      <div class="photo-caption-text" id="captionText"></div>
+    </div>
+
+    <!-- era markers -->
+    <div class="era-markers">
+      <span class="era-mark">Baby 👶</span>
+      <span class="era-mark">Little One 🌸</span>
+      <span class="era-mark">Growing Up ✨</span>
+      <span class="era-mark">Graduate 🎓</span>
+    </div>
+
+    <!-- scrubber bar -->
+    <div class="scrubber-bar-wrap">
+      <div class="scrubber-track" id="scrubberTrack">
+        <div class="scrubber-fill" id="scrubberFill"></div>
+        <!-- era ticks at 25%, 50%, 75% -->
+        <div class="scrubber-tick" style="left:25%"></div>
+        <div class="scrubber-tick" style="left:50%"></div>
+        <div class="scrubber-tick" style="left:75%"></div>
+        <div class="scrubber-thumb" id="scrubberThumb">
+          <svg viewBox="0 0 10 14"><line x1="3" y1="2" x2="3" y2="12"/><line x1="7" y1="2" x2="7" y2="12"/></svg>
+        </div>
       </div>
-
-    Upload all photo files to the same GitHub repo folder as index.html.
-    ═══════════════════════════════════════════
-    -->
-
-    <!-- SLOT 1 — hero, full width -->
-    <div class="media-slot photo">
-      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-      <span class="slot-lbl">Add favourite photo</span>
-      <span class="slot-hint">hero moment — full width</span>
-      <div class="era-pill">e.g. Age 3</div>
     </div>
 
-    <!-- SLOT 2 — photo -->
-    <div class="media-slot photo">
-      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-      <span class="slot-lbl">Add photo</span>
-      <div class="era-pill">e.g. Age 6</div>
-    </div>
-
-    <!-- SLOT 3 — video -->
-    <div class="media-slot video">
-      <div class="video-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-      <span class="slot-lbl">Add video</span>
-      <span class="slot-hint">paste YouTube / Drive link</span>
-      <div class="era-pill gold">Video</div>
-    </div>
-
-    <!-- SLOT 4 — photo -->
-    <div class="media-slot photo">
-      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-      <span class="slot-lbl">Add photo</span>
-      <div class="era-pill">e.g. Age 10</div>
-    </div>
-
-    <!-- SLOT 5 — photo -->
-    <div class="media-slot photo">
-      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-      <span class="slot-lbl">Add photo</span>
-      <div class="era-pill">e.g. Age 13</div>
-    </div>
-
-    <!-- SLOT 6 — video -->
-    <div class="media-slot video">
-      <div class="video-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-      <span class="slot-lbl">Add video</span>
-      <span class="slot-hint">paste YouTube / Drive link</span>
-      <div class="era-pill gold">Video</div>
-    </div>
-
-    <!-- SLOT 7 — photo -->
-    <div class="media-slot photo">
-      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-      <span class="slot-lbl">Add photo</span>
-      <div class="era-pill">e.g. Age 16</div>
-    </div>
-
-    <!-- SLOT 8 — photo -->
-    <div class="media-slot photo">
-      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-      <span class="slot-lbl">Add photo</span>
-      <div class="era-pill">e.g. Age 19</div>
-    </div>
-
-    <!-- SLOT 9 — video -->
-    <div class="media-slot video">
-      <div class="video-play"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
-      <span class="slot-lbl">Add video</span>
-      <span class="slot-hint">paste YouTube / Drive link</span>
-      <div class="era-pill gold">Video</div>
-    </div>
-
-    <!-- SLOT 10 — graduation, full width hero closer -->
-    <div class="media-slot photo" style="grid-column:1/-1;aspect-ratio:16/9">
-      <svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-      <span class="slot-lbl">Add convocation photo</span>
-      <span class="slot-hint">the big one — today 🎓</span>
-      <div class="era-pill gold">Graduate Radhu 🎓</div>
-    </div>
+    <!-- hint -->
+    <div class="scrubber-hint">drag to travel through time</div>
 
   </div>
 </div>
@@ -448,15 +488,15 @@
   <div class="dreams">
     <div class="dream-item">
       <div class="dream-num">1</div>
-      <div><div class="dream-text">Edit this — a trip you both want to take</div><div class="dream-sub">Add the place or the dream here</div></div>
+      <div><div class="dream-text">A trip to Chiang Mai</div><div class="dream-sub">Enjoy the Lantern Festival on a boat</div></div>
     </div>
     <div class="dream-item">
       <div class="dream-num">2</div>
-      <div><div class="dream-text">Edit this — something you're both excited about</div><div class="dream-sub">A goal, a plan, a little wish</div></div>
+      <div><div class="dream-text">Print big and invest money</div><div class="dream-sub">And let us rest and spend time stress free</div></div>
     </div>
     <div class="dream-item">
       <div class="dream-num">3</div>
-      <div><div class="dream-text">Edit this — your own future dream</div><div class="dream-sub">Big or small, it all counts</div></div>
+      <div><div class="dream-text">Get our own house</div><div class="dream-sub">Big or small, I wanna live with you!</div></div>
     </div>
   </div>
 </div>
@@ -470,12 +510,13 @@
     <div class="letter-glow2"></div>
     <div class="letter-open">"</div>
     <div class="letter-text">
-      Hey Radhudaaa,<br><br>
-      I wish I could be standing right there beside you today — watching you walk across that stage, camera in hand, absolutely losing it with pride.<br><br>
-      But know that even from far away, I'm there. In every step you take today, I'm cheering the loudest.<br><br>
-      You worked so hard for this. The late nights, the pressure, all of it — you never gave up. And you did it with a full merit scholarship, which still blows my mind every time I think about it.<br><br>
-      You are brilliant and caring and clumsy and thoughtful and so, so loved. Today belongs to you completely.<br><br>
-      Congratulations, my nanu nanu tutu. 🎓
+      Radhu,<br><br>
+      I soo wanted to be there to be a part of your convocation, watching you walk across that stage, camera in hand, cheering for you.<br><br>
+      But know that even from far away, I'm there. Dont worry, i'll make sure this gets celebrated when i'm there.<br><br>
+      Time flies like anything. No more humanising assignments from AI, No summer heat to bear anymore, No wasting energy on walking, No skipping bad mess meals.<br><br>
+      This is a new beginning of your life, make sure you switch to it confidently and rule this phase like you always do. Gather all the energy as its going to get real and rewarding too!<br><br>
+      Big offer letters with fat checks are on your way. Get ready.<br><br>
+      Congratulations again, my nanu nanu tutu. 🎓
     </div>
     <div class="letter-sign">— Always yours, from wherever I am 💛</div>
   </div>
@@ -486,90 +527,225 @@
   <span class="footer-heart">❤️</span>
   <div class="footer-title">A little place on the internet,<br>made just for you</div>
   <div class="footer-line"></div>
-  <div class="footer-sub">with all my love · always</div>
+  <div class="footer-sub">with love · always</div>
 </div>
 
 <script>
-/* ── CONFETTI ── */
+/* ════════════════════════════════
+   PHOTO DATA — ADD YOUR 56 PHOTOS HERE
+   Format: { src: 'filename.jpg', era: 'Baby Radhu 👶', caption: 'optional caption' }
+   era options: 'Baby Radhu 👶' | 'Little One 🌸' | 'Growing Up ✨' | 'Graduate Radhu 🎓'
+════════════════════════════════ */
+const PHOTOS = [
+  // ── BABY (photos 1–8) ──
+  { src: 'photo1.jpg',  era: 'Baby Radhu 👶',      caption: 'The beginning of everything 🌸' },
+  { src: 'photo2.jpg',  era: 'Baby Radhu 👶',      caption: '' },
+  { src: 'photo3.jpg',  era: 'Baby Radhu 👶',      caption: '' },
+  { src: 'photo4.jpg',  era: 'Baby Radhu 👶',      caption: '' },
+  { src: 'photo5.jpg',  era: 'Baby Radhu 👶',      caption: '' },
+  { src: 'photo6.jpg',  era: 'Baby Radhu 👶',      caption: '' },
+  { src: 'photo7.jpg',  era: 'Baby Radhu 👶',      caption: '' },
+  { src: 'photo8.jpg',  era: 'Baby Radhu 👶',      caption: '' },
+  // ── LITTLE ONE (photos 9–18) ──
+  { src: 'photo9.jpg',  era: 'Little One 🌸',      caption: '' },
+  { src: 'photo10.jpg', era: 'Little One 🌸',      caption: '' },
+  { src: 'photo11.jpg', era: 'Little One 🌸',      caption: '' },
+  { src: 'photo12.jpg', era: 'Little One 🌸',      caption: '' },
+  { src: 'photo13.jpg', era: 'Little One 🌸',      caption: '' },
+  { src: 'photo14.jpg', era: 'Little One 🌸',      caption: '' },
+  { src: 'photo15.jpg', era: 'Little One 🌸',      caption: '' },
+  { src: 'photo16.jpg', era: 'Little One 🌸',      caption: '' },
+  { src: 'photo17.jpg', era: 'Little One 🌸',      caption: '' },
+  { src: 'photo18.jpg', era: 'Little One 🌸',      caption: '' },
+  // ── GROWING UP (photos 19–44) ──
+  { src: 'photo19.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo20.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo21.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo22.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo23.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo24.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo25.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo26.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo27.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo28.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo29.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo30.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo31.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo32.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo33.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo34.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo35.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo36.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo37.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo38.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo39.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo40.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo41.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo42.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo43.jpg', era: 'Growing Up ✨',       caption: '' },
+  { src: 'photo44.jpg', era: 'Growing Up ✨',       caption: '' },
+  // ── GRADUATE (photos 45–56) ──
+  { src: 'photo45.jpg', era: 'Graduate Radhu 🎓',  caption: 'She made it. 🎓' },
+  { src: 'photo46.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo47.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo48.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo49.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo50.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo51.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo52.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo53.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo54.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo55.jpg', era: 'Graduate Radhu 🎓',  caption: '' },
+  { src: 'photo56.jpg', era: 'Graduate Radhu 🎓',  caption: 'Always so proud of you 💛' },
+];
+
+/* ════════════════════════════════
+   SCRUBBER ENGINE
+════════════════════════════════ */
+const track   = document.getElementById('scrubberTrack');
+const fill    = document.getElementById('scrubberFill');
+const thumb   = document.getElementById('scrubberThumb');
+const photoBg = document.getElementById('photoBg');
+const photoImg= document.getElementById('photoImg');
+const placeholder = document.getElementById('photoPlaceholder');
+const eraLabel= document.getElementById('eraLabel');
+const counter = document.getElementById('photoCounter');
+const caption = document.getElementById('captionText');
+
+const total = PHOTOS.length;
+let currentIndex = 0;
+let isDragging = false;
+let preloadedImgs = {};
+
+// preload all images for smooth scrubbing
+function preload() {
+  PHOTOS.forEach((p, i) => {
+    const img = new Image();
+    img.src = p.src;
+    preloadedImgs[i] = img;
+  });
+}
+preload();
+
+function setPhoto(idx) {
+  idx = Math.max(0, Math.min(total - 1, idx));
+  if (idx === currentIndex && photoImg.style.display !== 'none') return;
+  currentIndex = idx;
+
+  const p = PHOTOS[idx];
+
+  // check if src actually set (placeholder mode if no real photos yet)
+  if (!p.src || p.src.startsWith('photo')) {
+    // still show placeholder info but update labels
+    placeholder.style.display = 'flex';
+    photoImg.style.display = 'none';
+    photoBg.style.backgroundImage = '';
+  } else {
+    placeholder.style.display = 'none';
+    photoImg.style.display = 'block';
+    photoImg.classList.add('fading');
+    setTimeout(() => {
+      photoImg.src = p.src;
+      photoBg.style.backgroundImage = `url('${p.src}')`;
+      photoImg.classList.remove('fading');
+    }, 120);
+  }
+
+  eraLabel.textContent = p.era;
+  counter.textContent  = `${idx + 1} / ${total}`;
+  caption.textContent  = p.caption || '';
+
+  // update bar + thumb
+  const pct = total > 1 ? (idx / (total - 1)) * 100 : 0;
+  fill.style.width  = pct + '%';
+  thumb.style.left  = pct + '%';
+}
+
+function pctFromEvent(e) {
+  const rect = track.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  return Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+}
+
+function onMove(e) {
+  if (!isDragging) return;
+  e.preventDefault();
+  const pct = pctFromEvent(e);
+  const idx = Math.round(pct * (total - 1));
+  setPhoto(idx);
+}
+
+// mouse
+thumb.addEventListener('mousedown', e => { isDragging = true; thumb.classList.add('dragging'); e.preventDefault(); });
+window.addEventListener('mousemove', onMove);
+window.addEventListener('mouseup',   () => { isDragging = false; thumb.classList.remove('dragging'); });
+
+// touch
+thumb.addEventListener('touchstart', e => { isDragging = true; thumb.classList.add('dragging'); }, { passive: true });
+window.addEventListener('touchmove',  e => { if(isDragging) onMove(e); }, { passive: false });
+window.addEventListener('touchend',   () => { isDragging = false; thumb.classList.remove('dragging'); });
+
+// tap on track to jump
+track.addEventListener('click', e => {
+  if (e.target === thumb) return;
+  const pct = pctFromEvent(e);
+  setPhoto(Math.round(pct * (total - 1)));
+});
+
+// init
+setPhoto(0);
+setTimeout(() => thumb.classList.add('pulse'), 1200);
+setTimeout(() => thumb.classList.remove('pulse'), 5000);
+
+/* ════════════════════════════════
+   CONFETTI
+════════════════════════════════ */
 const canvas = document.getElementById('confetti-canvas');
 const ctx    = canvas.getContext('2d');
 canvas.width  = Math.min(window.innerWidth, 430);
 canvas.height = window.innerHeight;
-
 const COLORS = ['#C8435A','#7F77DD','#C9973A','#3A8A6B','#E8C97A','#E8A0AE','#C9B0E0','#fff'];
 const SHAPES = ['circle','rect','tri'];
 let pieces = [], raf;
-
 function Piece(x) {
-  this.x      = x !== undefined ? x : Math.random() * canvas.width;
-  this.y      = -12;
-  this.size   = 5 + Math.random() * 8;
-  this.color  = COLORS[Math.floor(Math.random() * COLORS.length)];
-  this.shape  = SHAPES[Math.floor(Math.random() * SHAPES.length)];
-  this.vy     = 3 + Math.random() * 5;
-  this.vx     = (Math.random() - .5) * 3.5;
-  this.rot    = Math.random() * 360;
-  this.rotSpd = (Math.random() - .5) * 9;
-  this.opacity= 1;
-  this.grav   = .04 + Math.random() * .06;
+  this.x=x!==undefined?x:Math.random()*canvas.width; this.y=-12;
+  this.size=5+Math.random()*8; this.color=COLORS[Math.floor(Math.random()*COLORS.length)];
+  this.shape=SHAPES[Math.floor(Math.random()*SHAPES.length)];
+  this.vy=3+Math.random()*5; this.vx=(Math.random()-.5)*3.5;
+  this.rot=Math.random()*360; this.rotSpd=(Math.random()-.5)*9;
+  this.opacity=1; this.grav=.04+Math.random()*.06;
 }
-
 function drawPiece(p) {
-  ctx.save();
-  ctx.globalAlpha = p.opacity;
-  ctx.fillStyle   = p.color;
-  ctx.translate(p.x, p.y);
-  ctx.rotate(p.rot * Math.PI / 180);
-  if (p.shape === 'circle') {
-    ctx.beginPath(); ctx.arc(0,0,p.size/2,0,Math.PI*2); ctx.fill();
-  } else if (p.shape === 'rect') {
-    ctx.fillRect(-p.size/2,-p.size/4,p.size,p.size/2);
-  } else {
-    ctx.beginPath(); ctx.moveTo(0,-p.size/2); ctx.lineTo(p.size/2,p.size/2); ctx.lineTo(-p.size/2,p.size/2); ctx.closePath(); ctx.fill();
-  }
+  ctx.save(); ctx.globalAlpha=p.opacity; ctx.fillStyle=p.color;
+  ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+  if(p.shape==='circle'){ctx.beginPath();ctx.arc(0,0,p.size/2,0,Math.PI*2);ctx.fill();}
+  else if(p.shape==='rect'){ctx.fillRect(-p.size/2,-p.size/4,p.size,p.size/2);}
+  else{ctx.beginPath();ctx.moveTo(0,-p.size/2);ctx.lineTo(p.size/2,p.size/2);ctx.lineTo(-p.size/2,p.size/2);ctx.closePath();ctx.fill();}
   ctx.restore();
 }
-
 function tick() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  pieces.forEach(p => {
-    p.y += p.vy; p.x += p.vx; p.vy += p.grav; p.rot += p.rotSpd;
-    if (p.y > canvas.height * .75) p.opacity -= .022;
-    drawPiece(p);
-  });
-  pieces = pieces.filter(p => p.opacity > 0);
-  if (pieces.length) raf = requestAnimationFrame(tick);
+  pieces.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.vy+=p.grav;p.rot+=p.rotSpd;if(p.y>canvas.height*.75)p.opacity-=.022;drawPiece(p);});
+  pieces=pieces.filter(p=>p.opacity>0);
+  if(pieces.length)raf=requestAnimationFrame(tick);
 }
+function burst(n,xMin,xMax){xMin=xMin??0;xMax=xMax??canvas.width;for(let i=0;i<n;i++)pieces.push(new Piece(xMin+Math.random()*(xMax-xMin)));}
+function launchConfetti(){burst(130);setTimeout(()=>burst(90),380);setTimeout(()=>burst(70),780);setTimeout(()=>burst(50),1200);cancelAnimationFrame(raf);tick();}
 
-function burst(n, xMin, xMax) {
-  xMin = xMin ?? 0; xMax = xMax ?? canvas.width;
-  for (let i = 0; i < n; i++) {
-    pieces.push(new Piece(xMin + Math.random() * (xMax - xMin)));
-  }
-}
-
-function launchConfetti() {
-  burst(130); setTimeout(() => burst(90), 380);
-  setTimeout(() => burst(70), 780); setTimeout(() => burst(50), 1200);
-  cancelAnimationFrame(raf); tick();
-}
-
-/* ── SPLASH ── */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const sp = document.getElementById('splash');
+/* SPLASH */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const sp=document.getElementById('splash');
     sp.classList.add('gone');
-    setTimeout(() => { sp.style.display = 'none'; launchConfetti(); }, 900);
-  }, 4300);
+    setTimeout(()=>{sp.style.display='none';launchConfetti();},900);
+  },4000);
 });
 
-/* ── SCROLL REVEAL ── */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-  });
-}, { threshold: 0.09 });
-document.querySelectorAll('.sec').forEach(el => obs.observe(el));
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:0.09});
+document.querySelectorAll('.sec').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
