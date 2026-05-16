@@ -1,455 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>For Radhu 🎓</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --pink:    #D4537E;
-      --pink-lt: #FBEAF0;
-      --pink-md: #F4C0D1;
-      --purple:  #7F77DD;
-      --purp-lt: #EEEDFE;
-      --amber:   #EF9F27;
-      --amb-lt:  #FAEEDA;
-      --teal:    #1D9E75;
-      --teal-lt: #E1F5EE;
-      --blue:    #378ADD;
-      --blue-lt: #E6F1FB;
-      --dark:    #1a1118;
-      --ink:     #2d1f28;
-      --muted:   #7a5f6e;
-      --light:   #f9f0f4;
-      --serif:   'Playfair Display', serif;
-      --sans:    'DM Sans', sans-serif;
+      --rose:    #C8435A;
+      --rose-lt: #FCEEF1;
+      --rose-md: #E8A0AE;
+      --gold:    #C9973A;
+      --gold-lt: #FBF3E4;
+      --gold-md: #E8C97A;
+      --plum:    #6B4E8A;
+      --plum-lt: #F0EAF8;
+      --sage:    #3A8A6B;
+      --sage-lt: #E6F5EE;
+      --ink:     #1C1018;
+      --muted:   #8A6B76;
+      --cream:   #FDF8F5;
+      --serif:   'Cormorant Garamond', serif;
+      --sans:    'Outfit', sans-serif;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     body {
       font-family: var(--sans);
-      background: var(--light);
+      background: var(--cream);
       color: var(--ink);
       max-width: 430px;
       margin: 0 auto;
       overflow-x: hidden;
     }
 
-    /* ── HERO ── */
+    /* CONFETTI */
+    #confetti-canvas {
+      position: fixed; top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 430px; height: 100vh;
+      pointer-events: none; z-index: 9999;
+    }
+
+    /* SPLASH */
+    #splash {
+      position: fixed; inset: 0;
+      background: var(--ink);
+      z-index: 9000;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity .9s ease, transform .9s ease;
+    }
+    #splash.gone { opacity: 0; transform: scale(1.05); pointer-events: none; }
+    .splash-cap  { font-size: 68px; margin-bottom: 1.2rem; animation: sfloat 2s ease-in-out infinite; }
+    @keyframes sfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .splash-text { font-family: var(--serif); font-size: 30px; color: #fff; font-weight: 300; letter-spacing: .04em; margin-bottom: .4rem; }
+    .splash-sub  { font-size: 11px; color: rgba(255,255,255,.35); letter-spacing: .18em; text-transform: uppercase; }
+    .splash-bar  { position: absolute; bottom: 0; left: 0; height: 3px; background: linear-gradient(to right, var(--rose), var(--gold), var(--plum)); animation: barfill 2.2s ease forwards; }
+    @keyframes barfill { from{width:0} to{width:100%} }
+
+    /* HERO */
     .hero {
-      background: var(--dark);
-      padding: 3.5rem 1.5rem 3rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+      min-height: 100svh;
+      background: var(--ink);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 2rem 5rem;
+      position: relative; overflow: hidden;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
+    .hero-mesh {
+      position: absolute; inset: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse 200px 160px at 20% 30%, rgba(212,83,126,0.25) 0%, transparent 70%),
-        radial-gradient(ellipse 180px 140px at 80% 70%, rgba(127,119,221,0.2) 0%, transparent 70%),
-        radial-gradient(ellipse 140px 120px at 50% 10%, rgba(239,159,39,0.15) 0%, transparent 70%);
-      pointer-events: none;
+        radial-gradient(ellipse 300px 250px at 15% 25%, rgba(200,67,90,.25) 0%, transparent 65%),
+        radial-gradient(ellipse 260px 200px at 85% 65%, rgba(107,78,138,.22) 0%, transparent 65%),
+        radial-gradient(ellipse 200px 160px at 50% 5%,  rgba(201,151,58,.18) 0%, transparent 65%);
     }
-    .confetti {
-      display: flex; justify-content: center; gap: 6px;
-      margin-bottom: 1.5rem; position: relative;
+    .hero-grain {
+      position: absolute; inset: 0; pointer-events: none; opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
-    .dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      animation: bop 1.6s infinite ease-in-out;
+    .hero-tag {
+      font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--gold-md); font-weight: 500; margin-bottom: 1.5rem; position: relative;
+      opacity: 0; animation: fadeup .8s .3s ease forwards;
     }
-    .dot:nth-child(1){background:#D4537E;animation-delay:0s}
-    .dot:nth-child(2){background:#7F77DD;animation-delay:.14s}
-    .dot:nth-child(3){background:#EF9F27;animation-delay:.28s}
-    .dot:nth-child(4){background:#1D9E75;animation-delay:.42s}
-    .dot:nth-child(5){background:#378ADD;animation-delay:.56s}
-    .dot:nth-child(6){background:#D4537E;animation-delay:.7s}
-    @keyframes bop { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-10px)} }
-
-    .cap {
-      font-size: 58px; display: block; margin-bottom: .8rem;
-      animation: float 3.5s ease-in-out infinite; position: relative;
+    .hero-cap {
+      font-size: 76px; display: block; margin-bottom: 1.2rem; position: relative;
+      opacity: 0; animation: popin .7s .65s cubic-bezier(.34,1.56,.64,1) forwards;
     }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-
-    .hero-label {
-      font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
-      color: var(--pink); font-weight: 500; margin-bottom: .6rem; position: relative;
+    @keyframes popin { from{opacity:0;transform:scale(.35)} to{opacity:1;transform:scale(1)} }
+    .hero-name {
+      font-family: var(--serif); font-size: 54px; font-weight: 300;
+      color: #fff; line-height: 1.08; letter-spacing: -.01em; position: relative;
+      opacity: 0; animation: fadeup .9s .9s ease forwards;
     }
-    .hero-title {
-      font-family: var(--serif); font-size: 32px; font-weight: 400;
-      color: #fff; line-height: 1.25; margin-bottom: 1rem; position: relative;
-    }
-    .hero-title em { font-style: italic; color: var(--pink-md); }
+    .hero-name em { font-style: italic; color: var(--rose-md); }
     .hero-sub {
-      font-size: 14px; color: rgba(255,255,255,0.6);
-      line-height: 1.8; position: relative; font-weight: 300;
+      font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.9;
+      font-weight: 300; max-width: 280px; position: relative; margin-top: 1.4rem;
+      opacity: 0; animation: fadeup .9s 1.15s ease forwards;
+    }
+    .hero-bg-year {
+      position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      font-family: var(--serif); font-size: 110px; font-weight: 300;
+      color: rgba(255,255,255,.03); white-space: nowrap; pointer-events: none; user-select: none;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: 0; animation: fadeup .8s 2s ease forwards;
+    }
+    .hero-scroll-txt { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.28); }
+    .scroll-line { width: 1px; height: 38px; background: linear-gradient(to bottom, rgba(255,255,255,.28), transparent); animation: spulse 2s ease-in-out infinite; }
+    @keyframes spulse { 0%,100%{opacity:.3} 50%{opacity:.9} }
+    @keyframes fadeup { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+    /* SECTION */
+    .sec {
+      padding: 2.2rem 1.4rem 0;
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .sec.visible { opacity: 1; transform: translateY(0); }
+
+    .sec-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 1.1rem; }
+    .sec-line    { flex: 1; height: 1px; background: linear-gradient(to right, var(--rose-md), transparent); }
+    .sec-label   { font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+
+    .divider {
+      margin: 2.2rem 1.4rem 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--rose-md) 40%, transparent);
+      opacity: .35;
     }
 
-    /* ── SECTION WRAPPER ── */
-    .sec { padding: 1.8rem 1.25rem 0; }
-    .sec-label {
-      font-size: 10px; font-weight: 500; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
-    }
+    /* BADGES */
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge { font-size: 11.5px; font-weight: 500; padding: 6px 14px; border-radius: 99px; border: 1px solid transparent; }
+    .b-rose  { background: var(--rose-lt); color: var(--rose); border-color: var(--rose-md); }
+    .b-plum  { background: var(--plum-lt); color: var(--plum); border-color: #C9B0E0; }
+    .b-gold  { background: var(--gold-lt); color: var(--gold); border-color: var(--gold-md); }
+    .b-sage  { background: var(--sage-lt); color: var(--sage); border-color: #9AD4BA; }
+    .b-ink   { background: var(--ink); color: #fff; }
 
-    /* ── BADGES ── */
-    .badge-row { display: flex; flex-wrap: wrap; gap: 7px; }
-    .badge {
-      font-size: 12px; font-weight: 500; padding: 5px 13px;
-      border-radius: 99px; letter-spacing: .01em;
-    }
-    .b-pink   { background: var(--pink-lt); color: #72243E; }
-    .b-purple { background: var(--purp-lt); color: #3C3489; }
-    .b-teal   { background: var(--teal-lt); color: #085041; }
-    .b-amber  { background: var(--amb-lt);  color: #633806; }
-    .b-blue   { background: var(--blue-lt); color: #0C447C; }
+    /* STAT ROW */
+    .stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .stat-card { background: var(--ink); border-radius: 16px; padding: 1.3rem .8rem; text-align: center; }
+    .stat-num  { font-family: var(--serif); font-size: 30px; font-weight: 300; color: #fff; line-height: 1; margin-bottom: .3rem; }
+    .stat-num em { font-style: italic; color: var(--gold-md); }
+    .stat-lbl  { font-size: 10px; color: rgba(255,255,255,.38); letter-spacing: .08em; text-transform: uppercase; }
 
-    /* ── TIMELINE ── */
-    .timeline { position: relative; padding-left: 1.2rem; }
-    .tl-line {
-      position: absolute; left: 5px; top: 6px; bottom: 6px;
-      width: 1.5px; background: linear-gradient(to bottom, var(--pink-md), var(--purp-lt));
-    }
-    .tl-item { position: relative; margin-bottom: 1.5rem; }
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 1.4rem; }
+    .tl-track { position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(to bottom, var(--rose), var(--plum), transparent); }
+    .tl-item  { position: relative; margin-bottom: 1.7rem; }
     .tl-item:last-child { margin-bottom: 0; }
-    .tl-dot {
-      position: absolute; left: -1.22rem; top: 5px;
-      width: 11px; height: 11px; border-radius: 50%;
-      background: var(--pink); border: 2.5px solid var(--light);
-      box-shadow: 0 0 0 2px var(--pink-md);
-    }
-    .tl-date {
-      font-size: 11px; color: var(--muted); margin-bottom: .2rem;
-      font-weight: 500; letter-spacing: .04em;
-    }
-    .tl-title {
-      font-family: var(--serif); font-size: 16px; font-weight: 400;
-      color: var(--ink); margin-bottom: .2rem;
-    }
-    .tl-desc { font-size: 13px; color: var(--muted); line-height: 1.6; font-weight: 300; }
+    .tl-dot   { position: absolute; left: -1.42rem; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--rose); border: 2.5px solid var(--cream); box-shadow: 0 0 0 3px rgba(200,67,90,.2); }
+    .tl-date  { font-size: 10px; color: var(--muted); margin-bottom: .25rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; }
+    .tl-title { font-family: var(--serif); font-size: 19px; font-weight: 400; color: var(--ink); margin-bottom: .2rem; line-height: 1.3; }
+    .tl-desc  { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; }
 
-    /* ── GALLERY ── */
+    /* GALLERY */
     .gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
     .photo-slot {
-      background: var(--pink-lt); border: 1.5px dashed var(--pink-md);
-      border-radius: 12px; aspect-ratio: 1;
-      display: flex; flex-direction: column;
+      background: var(--rose-lt); border: 1px dashed var(--rose-md); border-radius: 14px;
+      aspect-ratio: 1; display: flex; flex-direction: column;
       align-items: center; justify-content: center; gap: 5px;
       transition: background .2s;
     }
-    .photo-slot:hover { background: var(--pink-md); }
-    .photo-slot svg { width: 22px; height: 22px; stroke: var(--pink); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .photo-lbl { font-size: 10px; color: #993556; font-weight: 500; }
+    .photo-slot svg  { width: 20px; height: 20px; stroke: var(--rose); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .photo-lbl { font-size: 9px; color: var(--rose); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
 
-    /* ── CARDS ── */
+    /* CARDS */
     .cards-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
     .card {
-      background: #fff; border: 1px solid var(--pink-lt);
-      border-radius: 14px; padding: .95rem 1rem;
-      transition: transform .2s, box-shadow .2s;
+      background: #fff; border: 1px solid rgba(200,67,90,.1);
+      border-radius: 16px; padding: 1.1rem; position: relative; overflow: hidden;
+      transition: transform .22s cubic-bezier(.34,1.4,.64,1), box-shadow .22s;
     }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212,83,126,.1); }
-    .card-icon { font-size: 22px; margin-bottom: .45rem; display: block; }
-    .card-title {
-      font-size: 13px; font-weight: 500; color: var(--ink);
-      margin-bottom: .25rem; line-height: 1.4;
-    }
-    .card-body { font-size: 12px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+    .card:active { transform: scale(.97); }
+    .card::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 16px 16px 0 0; }
+    .card.proud::before { background: linear-gradient(to right, var(--plum), var(--rose)); }
+    .card.love::before  { background: linear-gradient(to right, var(--rose), var(--gold)); }
+    .card-icon  { font-size: 24px; margin-bottom: .5rem; display: block; }
+    .card-title { font-family: var(--serif); font-size: 16px; font-weight: 400; color: var(--ink); margin-bottom: .3rem; line-height: 1.3; }
+    .card-body  { font-size: 12px; color: var(--muted); line-height: 1.7; font-weight: 300; }
     .full { grid-column: 1/-1; }
 
-    /* ── DREAMS ── */
-    .dreams {
-      background: #fff; border: 1px solid var(--purp-lt);
-      border-radius: 14px; overflow: hidden;
-    }
-    .dream-item {
-      display: flex; gap: 13px; align-items: flex-start;
-      padding: 1rem 1.1rem; border-bottom: 1px solid var(--purp-lt);
-    }
+    /* DREAMS */
+    .dreams { background: #fff; border: 1px solid var(--plum-lt); border-radius: 16px; overflow: hidden; }
+    .dream-item { display: flex; gap: 14px; align-items: flex-start; padding: 1.1rem 1.2rem; border-bottom: 1px solid var(--plum-lt); transition: background .18s; }
     .dream-item:last-child { border-bottom: none; }
-    .dream-num {
-      min-width: 26px; height: 26px; border-radius: 50%;
-      background: var(--purp-lt); color: #3C3489;
-      font-size: 12px; font-weight: 500;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .dream-text { font-size: 13px; color: var(--ink); line-height: 1.5; padding-top: 3px; }
-    .dream-sub { font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 300; }
+    .dream-item:hover { background: var(--plum-lt); }
+    .dream-num  { min-width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--plum), var(--rose)); color: #fff; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .dream-text { font-size: 13.5px; color: var(--ink); line-height: 1.5; padding-top: 4px; }
+    .dream-sub  { font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 300; }
 
-    /* ── LETTER ── */
+    /* LETTER */
     .letter {
-      background: var(--amb-lt); border: 1px solid #FAC775;
-      border-radius: 14px; padding: 1.6rem 1.4rem;
+      background: var(--ink); border-radius: 20px; padding: 2rem 1.6rem 1.8rem;
       position: relative; overflow: hidden;
     }
-    .letter::before {
-      content: '\201C'; position: absolute; top: -10px; left: 12px;
-      font-family: var(--serif); font-size: 100px; color: rgba(239,159,39,.15);
-      line-height: 1; pointer-events: none;
-    }
-    .letter-text {
-      font-family: var(--serif); font-size: 14.5px;
-      color: #412402; line-height: 2; position: relative;
-    }
-    .letter-sign {
-      margin-top: 1.2rem; font-family: var(--serif); font-size: 14px;
-      color: #633806; font-style: italic; position: relative;
-    }
+    .letter-glow  { position: absolute; top: -60px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(200,67,90,.25) 0%, transparent 70%); pointer-events: none; }
+    .letter-glow2 { position: absolute; bottom: -50px; left: -30px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(107,78,138,.2) 0%, transparent 70%); pointer-events: none; }
+    .letter-open  { position: absolute; top: -6px; left: 14px; font-family: var(--serif); font-size: 88px; color: rgba(232,160,174,.18); line-height: 1; pointer-events: none; }
+    .letter-text  { font-family: var(--serif); font-size: 15px; color: rgba(255,255,255,.85); line-height: 2.1; position: relative; z-index: 1; }
+    .letter-sign  { margin-top: 1.4rem; font-family: var(--serif); font-size: 14px; color: var(--gold-md); font-style: italic; position: relative; z-index: 1; }
 
-    /* ── DIVIDER ── */
-    .divider {
-      margin: 1.8rem 1.25rem 0;
-      height: 1px; background: linear-gradient(to right, transparent, var(--pink-md), transparent);
-    }
-
-    /* ── FOOTER ── */
-    .footer {
-      text-align: center; padding: 2rem 1.5rem 2.5rem;
-    }
-    .heart-big {
-      font-size: 32px; display: block; margin-bottom: .5rem;
-      animation: hb 1.8s infinite ease-in-out;
-    }
-    @keyframes hb {
-      0%,100%{transform:scale(1)} 14%{transform:scale(1.2)}
-      28%{transform:scale(1)} 42%{transform:scale(1.12)} 70%{transform:scale(1)}
-    }
-    .footer-title {
-      font-family: var(--serif); font-size: 18px; color: var(--ink);
-      margin-bottom: .4rem; font-style: italic;
-    }
-    .footer-sub { font-size: 12px; color: var(--muted); font-weight: 300; }
-
-    /* ── FADE IN ANIMATION ── */
-    .fade-in {
-      opacity: 0; transform: translateY(18px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    /* FOOTER */
+    .footer { text-align: center; padding: 3rem 1.5rem 4.5rem; }
+    .footer-heart { font-size: 36px; display: block; margin-bottom: .9rem; animation: hb 2s infinite ease-in-out; }
+    @keyframes hb { 0%,100%{transform:scale(1)} 14%{transform:scale(1.22)} 28%{transform:scale(1)} 42%{transform:scale(1.14)} 70%{transform:scale(1)} }
+    .footer-title { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--ink); line-height: 1.45; font-style: italic; }
+    .footer-line  { width: 48px; height: 1px; background: linear-gradient(to right, transparent, var(--rose-md), transparent); margin: 1.2rem auto; }
+    .footer-sub   { font-size: 11px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="confetti">
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-    </div>
-    <span class="cap">🎓</span>
-    <div class="hero-label">Convocation Day</div>
-    <h1 class="hero-title">Congratulations,<br><em>Radhu</em></h1>
-    <p class="hero-sub">Distance kept me from standing next to you today,<br>but nothing could stop me from celebrating<br>how proud I am of you.</p>
+<canvas id="confetti-canvas"></canvas>
+
+<!-- SPLASH -->
+<div id="splash">
+  <span class="splash-cap">🎓</span>
+  <div class="splash-text">For Radhu</div>
+  <div class="splash-sub">Something special awaits</div>
+  <div class="splash-bar"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-tag">Convocation Day · 2025</div>
+  <span class="hero-cap">🎓</span>
+  <h1 class="hero-name">Congratulations,<br><em>Radhu</em></h1>
+  <p class="hero-sub">Distance kept me from standing next to you today, but nothing could stop me from celebrating how proud I am of you.</p>
+  <div class="hero-bg-year">2025</div>
+  <div class="hero-scroll">
+    <span class="hero-scroll-txt">Scroll</span>
+    <div class="scroll-line"></div>
   </div>
+</section>
 
-  <!-- ACHIEVEMENTS -->
-  <div class="sec fade-in">
-    <div class="sec-label">What makes you extraordinary</div>
-    <div class="badge-row">
-      <span class="badge b-purple">Full merit scholarship</span>
-      <span class="badge b-teal">Finance wizard</span>
-      <span class="badge b-amber">Hard worker</span>
-      <span class="badge b-blue">Memory like an elephant</span>
-      <span class="badge b-pink">Fast learner</span>
-    </div>
+<!-- ACHIEVEMENTS -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">What makes you extraordinary</div></div>
+  <div class="badge-row">
+    <span class="badge b-ink">🏆 Full merit scholarship</span>
+    <span class="badge b-sage">📊 Finance wizard</span>
+    <span class="badge b-gold">⚡ Hard worker</span>
+    <span class="badge b-plum">🧠 Memory like an elephant</span>
+    <span class="badge b-rose">✨ Fast learner</span>
   </div>
+</div>
 
-  <div class="divider"></div>
-
-  <!-- OUR STORY -->
-  <div class="sec fade-in">
-    <div class="sec-label">Our story</div>
-    <div class="timeline">
-      <div class="tl-line"></div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">The beginning — ✦ your date here</div>
-        <div class="tl-title">The day we met</div>
-        <div class="tl-desc">Write how you two met here. Even a few words make it magical.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">A favorite moment — ✦ your date here</div>
-        <div class="tl-title">Memory #2</div>
-        <div class="tl-desc">A moment you'll both always remember. Add your version here.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">Another milestone — ✦ your date here</div>
-        <div class="tl-title">Memory #3</div>
-        <div class="tl-desc">Your third favorite moment together — make it count.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-date">Today 🎓</div>
-        <div class="tl-title">Her convocation day</div>
-        <div class="tl-desc">The day Radhu graduated and made everyone so incredibly proud.</div>
-      </div>
+<!-- STATS -->
+<div class="sec">
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num"><em>1st</em></div>
+      <div class="stat-lbl">merit scholar</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">∞</div>
+      <div class="stat-lbl">proud of you</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num"><em>♾</em></div>
+      <div class="stat-lbl">love for you</div>
     </div>
   </div>
+</div>
 
-  <div class="divider"></div>
-
-  <!-- GALLERY -->
-  <div class="sec fade-in">
-    <div class="sec-label">Our gallery</div>
-    <div class="gallery">
-      <!-- Replace each photo-slot div with: <img src="your-photo.jpg" style="border-radius:12px;width:100%;aspect-ratio:1;object-fit:cover"> -->
-      <div class="photo-slot">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="11" r="3"/><path d="M3 16l4-4 4 4 3-3 4 4"/></svg>
-        <span class="photo-lbl">Add photo</span>
-      </div>
-      <div class="photo-slot">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="11" r="3"/><path d="M3 16l4-4 4 4 3-3 4 4"/></svg>
-        <span class="photo-lbl">Add photo</span>
-      </div>
-      <div class="photo-slot">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="11" r="3"/><path d="M3 16l4-4 4 4 3-3 4 4"/></svg>
-        <span class="photo-lbl">Add photo</span>
-      </div>
-      <div class="photo-slot">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="11" r="3"/><path d="M3 16l4-4 4 4 3-3 4 4"/></svg>
-        <span class="photo-lbl">Add photo</span>
-      </div>
-      <div class="photo-slot">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="11" r="3"/><path d="M3 16l4-4 4 4 3-3 4 4"/></svg>
-        <span class="photo-lbl">Add photo</span>
-      </div>
-      <div class="photo-slot">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="11" r="3"/><path d="M3 16l4-4 4 4 3-3 4 4"/></svg>
-        <span class="photo-lbl">Add photo</span>
-      </div>
+<!-- OUR STORY -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Our story</div></div>
+  <div class="timeline">
+    <div class="tl-track"></div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">The beginning — ✦ edit your date</div>
+      <div class="tl-title">The day we met</div>
+      <div class="tl-desc">Write how you two met here. Even a few words make it magical.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">A favorite moment — ✦ edit your date</div>
+      <div class="tl-title">Memory #2</div>
+      <div class="tl-desc">A moment you'll both always remember. Add your version here.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Another milestone — ✦ edit your date</div>
+      <div class="tl-title">Memory #3</div>
+      <div class="tl-desc">Your third favorite moment together — make it count.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--gold)"></div>
+      <div class="tl-date">Today 🎓</div>
+      <div class="tl-title">Convocation Day</div>
+      <div class="tl-desc">The day Radhu graduated and made everyone so incredibly proud.</div>
     </div>
   </div>
+</div>
 
-  <div class="divider"></div>
+<!-- GALLERY -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Our gallery</div></div>
+  <div class="gallery">
+    <!--
+      TO ADD YOUR PHOTO:
+      Replace each <div class="photo-slot">...</div> with:
+      <img src="photo1.jpg" style="border-radius:14px;width:100%;aspect-ratio:1;object-fit:cover">
+      Then upload that photo file to the same GitHub repo folder.
+    -->
+    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
+    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
+    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
+    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
+    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
+    <div class="photo-slot"><svg viewBox="0 0 24 24"><path d="M15 8h.01M3 16l5-5 4 4 3-3 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg><span class="photo-lbl">Add photo</span></div>
+  </div>
+</div>
 
-  <!-- PROUD OF YOU -->
-  <div class="sec fade-in">
-    <div class="sec-label">Why I'm so proud of you</div>
-    <div class="cards-grid">
-      <div class="card">
-        <span class="card-icon">✨</span>
-        <div class="card-title">You earned every bit of this</div>
-        <div class="card-body">A full merit scholarship is what relentless hard work looks like. You did that.</div>
-      </div>
-      <div class="card">
-        <span class="card-icon">🧠</span>
-        <div class="card-title">That mind of yours</div>
-        <div class="card-body">You absorb and retain things faster than anyone. It's genuinely a superpower.</div>
-      </div>
-      <div class="card full">
-        <span class="card-icon">📊</span>
-        <div class="card-title">You make finance look effortless</div>
-        <div class="card-body">Watching you own something so complex with such confidence makes me beam every single time.</div>
-      </div>
+<!-- PROUD OF YOU -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Why I'm so proud of you</div></div>
+  <div class="cards-grid">
+    <div class="card proud">
+      <span class="card-icon">✨</span>
+      <div class="card-title">You earned every bit of this</div>
+      <div class="card-body">A full merit scholarship is what relentless hard work looks like. You did that.</div>
+    </div>
+    <div class="card proud">
+      <span class="card-icon">🧠</span>
+      <div class="card-title">That mind of yours</div>
+      <div class="card-body">You absorb and retain things faster than anyone. A genuine superpower.</div>
+    </div>
+    <div class="card proud full">
+      <span class="card-icon">📊</span>
+      <div class="card-title">You make finance look effortless</div>
+      <div class="card-body">Watching you own something so complex with such confidence makes me beam every single time.</div>
     </div>
   </div>
+</div>
 
-  <div class="divider"></div>
-
-  <!-- REASONS I LOVE YOU -->
-  <div class="sec fade-in">
-    <div class="sec-label">Reasons I love you</div>
-    <div class="cards-grid">
-      <div class="card">
-        <span class="card-icon">🌸</span>
-        <div class="card-title">You're the cutest</div>
-        <div class="card-body">Genuinely, embarrassingly, the cutest. Every single thing. I don't make the rules.</div>
-      </div>
-      <div class="card">
-        <span class="card-icon">💛</span>
-        <div class="card-title">So thoughtful & caring</div>
-        <div class="card-body">You notice the little things. You check in. You care so deeply — it's everything.</div>
-      </div>
-      <div class="card">
-        <span class="card-icon">🤸</span>
-        <div class="card-title">Your clumsy side</div>
-        <div class="card-body">I love your little clumsy moments. They're perfectly, completely you.</div>
-      </div>
-      <div class="card">
-        <span class="card-icon">🏡</span>
-        <div class="card-title">How you love your family</div>
-        <div class="card-body">The way you show up for people you love says everything about who you are.</div>
-      </div>
+<!-- REASONS I LOVE YOU -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Reasons I love you</div></div>
+  <div class="cards-grid">
+    <div class="card love">
+      <span class="card-icon">🌸</span>
+      <div class="card-title">You're the cutest</div>
+      <div class="card-body">Genuinely, embarrassingly, the cutest. Every single thing. I don't make the rules.</div>
+    </div>
+    <div class="card love">
+      <span class="card-icon">💛</span>
+      <div class="card-title">So thoughtful & caring</div>
+      <div class="card-body">You notice the little things. You check in. You care so deeply.</div>
+    </div>
+    <div class="card love">
+      <span class="card-icon">🤸</span>
+      <div class="card-title">Your clumsy side</div>
+      <div class="card-body">I love your clumsy moments so much. Perfectly, completely you.</div>
+    </div>
+    <div class="card love">
+      <span class="card-icon">🏡</span>
+      <div class="card-title">How you love your family</div>
+      <div class="card-body">The way you show up for people you love says everything about who you are.</div>
     </div>
   </div>
+</div>
 
-  <div class="divider"></div>
-
-  <!-- FUTURE DREAMS -->
-  <div class="sec fade-in">
-    <div class="sec-label">Things I can't wait to do with you</div>
-    <div class="dreams">
-      <div class="dream-item">
-        <div class="dream-num">1</div>
-        <div>
-          <div class="dream-text">Edit this — a trip you both want to take</div>
-          <div class="dream-sub">Add the place or the dream here</div>
-        </div>
-      </div>
-      <div class="dream-item">
-        <div class="dream-num">2</div>
-        <div>
-          <div class="dream-text">Edit this — something you're excited about together</div>
-          <div class="dream-sub">A goal, a plan, a little wish</div>
-        </div>
-      </div>
-      <div class="dream-item">
-        <div class="dream-num">3</div>
-        <div>
-          <div class="dream-text">Edit this — your own future dream</div>
-          <div class="dream-sub">Big or small, it all counts</div>
-        </div>
-      </div>
+<!-- FUTURE DREAMS -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">Things I can't wait to do with you</div></div>
+  <div class="dreams">
+    <div class="dream-item">
+      <div class="dream-num">1</div>
+      <div><div class="dream-text">Edit this — a trip you both want to take</div><div class="dream-sub">Add the place or the dream here</div></div>
+    </div>
+    <div class="dream-item">
+      <div class="dream-num">2</div>
+      <div><div class="dream-text">Edit this — something you're excited about together</div><div class="dream-sub">A goal, a plan, a little wish</div></div>
+    </div>
+    <div class="dream-item">
+      <div class="dream-num">3</div>
+      <div><div class="dream-text">Edit this — your own future dream</div><div class="dream-sub">Big or small, it all counts</div></div>
     </div>
   </div>
+</div>
 
-  <div class="divider"></div>
-
-  <!-- LETTER -->
-  <div class="sec fade-in">
-    <div class="sec-label">A note from me to you</div>
-    <div class="letter">
-      <div class="letter-text">
-        Hey Radhu,<br><br>
-        I wish I could be standing right there beside you today — watching you walk across that stage, camera in hand, absolutely losing it with pride.<br><br>
-        But know that even from far away, I'm there. In every step you take today, I'm cheering the loudest.<br><br>
-        You worked so hard for this. The late nights, the pressure, all of it — you never gave up. And you did it with a full merit scholarship, which still blows my mind every time I think about it.<br><br>
-        You are brilliant and caring and clumsy and thoughtful and so, so loved. Today belongs to you completely.<br><br>
-        Congratulations, my Radhu. 🎓
-      </div>
-      <div class="letter-sign">— Always yours, from wherever I am 💛</div>
+<!-- LETTER -->
+<div class="divider"></div>
+<div class="sec">
+  <div class="sec-eyebrow"><div class="sec-line"></div><div class="sec-label">A note from me to you</div></div>
+  <div class="letter">
+    <div class="letter-glow"></div>
+    <div class="letter-glow2"></div>
+    <div class="letter-open">"</div>
+    <div class="letter-text">
+      Hey Radhu,<br><br>
+      I wish I could be standing right there beside you today — watching you walk across that stage, camera in hand, absolutely losing it with pride.<br><br>
+      But know that even from far away, I'm there. In every step you take today, I'm cheering the loudest.<br><br>
+      You worked so hard for this. The late nights, the pressure, all of it — you never gave up. And you did it with a full merit scholarship, which still blows my mind every time I think about it.<br><br>
+      You are brilliant and caring and clumsy and thoughtful and so, so loved. Today belongs to you completely.<br><br>
+      Congratulations, my Radhu. 🎓
     </div>
+    <div class="letter-sign">— Always yours, from wherever I am 💛</div>
   </div>
+</div>
 
-  <!-- FOOTER -->
-  <div class="footer fade-in">
-    <span class="heart-big">❤️</span>
-    <div class="footer-title">A little place on the internet,<br>made just for you</div>
-    <div class="footer-sub" style="margin-top:.5rem">— with all my love</div>
-  </div>
+<!-- FOOTER -->
+<div class="sec footer">
+  <span class="footer-heart">❤️</span>
+  <div class="footer-title">A little place on the internet,<br>made just for you</div>
+  <div class="footer-line"></div>
+  <div class="footer-sub">with all my love · always</div>
+</div>
 
-  <script>
-    // Fade-in on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
+<script>
+/* ── CONFETTI ENGINE ── */
+const canvas = document.getElementById('confetti-canvas');
+const ctx    = canvas.getContext('2d');
+canvas.width  = Math.min(window.innerWidth, 430);
+canvas.height = window.innerHeight;
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  </script>
+const COLORS = ['#C8435A','#7F77DD','#C9973A','#3A8A6B','#E8C97A','#E8A0AE','#C9B0E0','#fff'];
+const SHAPES = ['circle','rect','tri'];
+let pieces = [], raf;
 
+function Piece(x) {
+  this.x       = x !== undefined ? x : Math.random() * canvas.width;
+  this.y       = -12;
+  this.size    = 5 + Math.random() * 8;
+  this.color   = COLORS[Math.floor(Math.random() * COLORS.length)];
+  this.shape   = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+  this.vy      = 3 + Math.random() * 5;
+  this.vx      = (Math.random() - .5) * 3.5;
+  this.rot     = Math.random() * 360;
+  this.rotSpd  = (Math.random() - .5) * 9;
+  this.opacity = 1;
+  this.grav    = .04 + Math.random() * .06;
+}
+
+function drawPiece(p) {
+  ctx.save();
+  ctx.globalAlpha = p.opacity;
+  ctx.fillStyle   = p.color;
+  ctx.translate(p.x, p.y);
+  ctx.rotate(p.rot * Math.PI / 180);
+  if (p.shape === 'circle') {
+    ctx.beginPath(); ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2); ctx.fill();
+  } else if (p.shape === 'rect') {
+    ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+  } else {
+    ctx.beginPath(); ctx.moveTo(0, -p.size / 2); ctx.lineTo(p.size / 2, p.size / 2); ctx.lineTo(-p.size / 2, p.size / 2); ctx.closePath(); ctx.fill();
+  }
+  ctx.restore();
+}
+
+function tick() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  pieces.forEach(p => {
+    p.y   += p.vy;
+    p.x   += p.vx;
+    p.vy  += p.grav;
+    p.rot += p.rotSpd;
+    if (p.y > canvas.height * .75) p.opacity -= .022;
+    drawPiece(p);
+  });
+  pieces = pieces.filter(p => p.opacity > 0);
+  if (pieces.length) raf = requestAnimationFrame(tick);
+}
+
+function burst(n, xMin, xMax) {
+  xMin = xMin ?? 0; xMax = xMax ?? canvas.width;
+  for (let i = 0; i < n; i++) {
+    const p = new Piece(xMin + Math.random() * (xMax - xMin));
+    pieces.push(p);
+  }
+}
+
+function launchConfetti() {
+  burst(130);
+  setTimeout(() => burst(90),  380);
+  setTimeout(() => burst(70),  780);
+  setTimeout(() => burst(50), 1200);
+  cancelAnimationFrame(raf);
+  tick();
+}
+
+/* ── SPLASH ── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const sp = document.getElementById('splash');
+    sp.classList.add('gone');
+    setTimeout(() => { sp.style.display = 'none'; launchConfetti(); }, 900);
+  }, 2300);
+});
+
+/* ── SCROLL REVEAL ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.09 });
+document.querySelectorAll('.sec').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
