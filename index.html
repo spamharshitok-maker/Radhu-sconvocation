@@ -635,7 +635,7 @@ function setPhoto(idx) {
   const p = PHOTOS[idx];
 
   // check if src actually set (placeholder mode if no real photos yet)
-  if (!p.src || p.src.startsWith('photo')) {
+  if (!p.src) {
     // still show placeholder info but update labels
     placeholder.style.display = 'flex';
     photoImg.style.display = 'none';
